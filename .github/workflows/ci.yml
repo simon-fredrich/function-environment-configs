@@ -30,7 +30,7 @@ env:
 
   # The package to push, without a version tag. The default matches GitHub. For
   # example xpkg.upbound.io/crossplane/function-template-go.
-  XPKG: xpkg.upbound.io/${{ github.repository}}
+  XPKG: ghcr.io/${{ github.repository}}
 
   # The package version to push. The default is 0.0.0-gitsha.
   XPKG_VERSION: ${{ inputs.version }}
@@ -155,5 +155,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Multi-Platform Package to GHCR
-        if: env.XPKG_ACCESS_ID != ''
         run: "./crossplane --verbose xpkg push --package-files $(echo *.xpkg|tr ' ' ,) ${XPKG@L}:${{ env.XPKG_VERSION }}"
